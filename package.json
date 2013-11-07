@@ -9,6 +9,10 @@
   "dependencies": {
     "mongodb": "latest"
   },  
+  "devDependencies": {
+      "integra": "latest"
+    , "optimist": "latest"
+  },
   "repository": "",
   "author": "",
   "license": "BSD"
