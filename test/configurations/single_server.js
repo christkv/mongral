@@ -5,10 +5,11 @@ var Configuration = require('integra').Configuration
   , ServerManager = require('../helper/server_manager').ServerManager;
 
 var single_server_config = function(options) {
+  var dbName = "integration_tests";
+
   return function() {
     var self = this;
     options = options != null ? options : {};
-    var dbs = [];
 
     // Server Manager options
     var server_options = {
@@ -22,14 +23,25 @@ var single_server_config = function(options) {
 
     // Server manager
     var serverManager = new ServerManager(server_options);
-    var dbs = [];
 
     //
     // Test suite start
     this.start = function(callback) {
+      var self = this;
+
       serverManager.start(true, function(err) {
         if(err) throw err;
-        callback();
+
+        // Open a new db instance
+        self.newDbInstance().open(function(err, db) {
+          if(err) throw err;
+
+          // Drop the database
+          db.dropDatabase(function(err, r) {
+            if(err) throw err;
+            callback();
+          })
+        });
       });
     }
 
@@ -59,13 +71,9 @@ var single_server_config = function(options) {
     }
 
     this.newDbInstance = function(db_options, server_options) {
-      var db = new Db('integration_tests', new Server("127.0.0.1", 27017, server_options), db_options);
-      dbs.push(db);
-      return db;
+      db_options = db_options == null ? {w:1} : db_options;
+      return new Db(dbName, new Server("127.0.0.1", 27017, server_options), db_options);
     }
-
-    // Used in tests
-    this.db_name = "integration_tests";    
   }
 }
 
