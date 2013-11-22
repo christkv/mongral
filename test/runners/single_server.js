@@ -20,7 +20,9 @@ module.exports = function(configurations) {
     // The list of files to execute
     .add("tests",
       [
-      	"/test/simple_model_tests.js"
+      	  "/test/tests/simple_model_tests.js"
+        , "/test/tests/validation_tests.js"
+        , "/test/tests/schema_extension_tests.js"
       ]
     );
 

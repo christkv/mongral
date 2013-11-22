@@ -1,4 +1,4 @@
-var connect = require('../lib/mongral')
+var connect = require('../../lib/mongral')
   , MongoClient = require('mongodb').MongoClient
   , Schema = connect.Schema;
 
@@ -31,7 +31,6 @@ var UserWithAddresses = Schema('User2', function(r) {
 });
 
 exports["Should correctly define a simple model, with embedded array doing push of object"] = function(configuration, test) {
-  // Connect
   connect(connectUrl, function(err, mongral) {
   	test.equal(null, err);
 
