@@ -23,6 +23,7 @@ module.exports = function(configurations) {
       	  "/test/tests/simple_model_tests.js"
         , "/test/tests/validation_tests.js"
         , "/test/tests/schema_extension_tests.js"
+        , "/test/tests/transformation_tests.js"
       ]
     );
 
